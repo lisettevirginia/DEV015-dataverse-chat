@@ -1,9 +1,33 @@
-export function home() {
-  const viewEl = document.createElement('div');
-  viewEl.innerHTML = `
-    <h1>Bienvenido al Dataverse Chat</h1>
-    <p>Explora y conéctate con otros personajes.</p>
-  `;
-  return viewEl;
+import { CharacterList } from "../components/CharacterList.js";
+import ordenado from "../components/ordenado.js";
+import filtrado from "../components/filtrado.js";
+import boton from "../components/boton.js";
+import renderHeader  from "../components/Renderheader.js"
+
+function home() {
+
+  const divHome = document.createElement('div');  
+  divHome.appendChild (renderHeader());
+
+  const viewElHome = document.createElement('div');
+  divHome.appendChild (viewElHome);
+
+  const divOrdenado = document.createElement('div');  
+  divOrdenado.appendChild (ordenado());
+  divHome.appendChild(divOrdenado);
+
+  const divFiltrado = document.createElement('div');
+  divFiltrado.appendChild(filtrado());
+  divHome.appendChild(divFiltrado);
+
+  const divBoton = document.createElement('div');
+  divBoton.appendChild(boton());
+  divHome.appendChild(divBoton);
+
+  const divCharacterList = document.createElement('div');
+  divCharacterList.appendChild(CharacterList());
+  divHome.appendChild(divCharacterList);
+
+  return divHome;
 }
-export default home;
+export default home 

@@ -4,23 +4,21 @@ import chatIndividual from './views/chatIndividual.js';
 import PageError from './views/PageError.js';
 import { setRootEl, setRoutes, onURLChange } from './router.js';
 
-const prueba = document.getElementById('root');
-
-const routes = {
+const routes = { //configuramos las rutas
   "/": home,
-  "/ApiKey": ApiKey,
-  "/chatIndividual": chatIndividual,
-  "/PageError": PageError,
+  "/api-key": ApiKey,
+  "/chat-individual": chatIndividual,
+  "/page-error": PageError,
 };
 
 setRoutes(routes);
 
-window.addEventListener("DOMContentLoaded", () => {
-  setRootEl(prueba);
+window.addEventListener("DOMContentLoaded", () => { //Inicializamos el SPA
+  setRootEl(document.getElementById('root'))
   onURLChange(window.location);
 });
 
-window.addEventListener("popstate", () => {
+window.addEventListener("popstate", () => { // Manejo del historial
   onURLChange(window.location);
 });
 
