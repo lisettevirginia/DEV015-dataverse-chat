@@ -76,8 +76,7 @@ h2 {
   color: rgb(58, 7, 105);
 }
 
-
-button, #calcularEstadisticas {
+button {
   background-color: rgba(204, 129, 223, 0.623); /* Color lila semi-transparente */
   color: rgb(58, 7, 105); /* Color del texto */
   font-family: 'Niconne', cursive;
@@ -93,17 +92,12 @@ button, #calcularEstadisticas {
   box-sizing: border-box; /* Incluye padding y borde en el tamaño total del botón */
 }
 
-button {
-  width: 12.5rem; /* Ancho específico para botones generales */
-}
-
 .resultado-estadisticas {
   font-weight: bold; /* Grosor de fuente en negrita */
   width: 200px; /* Ancho específico para este botón */
   line-height: 1.2; /* Altura de línea para centrar el texto verticalmente */
   padding: 10px 20px; /* Espacio interno adicional */
 }
-
 
 label {
   margin-bottom: 0.625rem; /* espacio inferior */
@@ -132,8 +126,8 @@ button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
+  width: 12.5rem; /* Ancho específico para botones generales */
 }
-
 
 /*disposicion de las tarjetas*/
 .character-list {
@@ -191,7 +185,6 @@ p {
   transform: scale(1.05);/* aumenta el tamaño de la tarjeta en un 5% */
 } 
 
-
 /* Estilo para las imágenes */
 .personajes {
   display: flex; /*usa el modelo de caja flexible*/
@@ -207,7 +200,6 @@ p {
   color: #fcf7f7;
   margin: 0.625rem; /* Ajustado para rem */
 }
-
 
 /*pie de pagina*/
 footer {
@@ -227,24 +219,6 @@ footer {
   box-sizing: border-box; /* asegura que el padding y border se incluyan en el ancho total */
 }
 
-#calcularEstadisticas {
-  border-radius: 5px; /* ajustado para rem */
-  font-family: 'Montserrat', sans-serif;
-  text-align:center; /* centra el texto dentro del botón */
-  font-size: 1rem;/* tamaño de fuente fijo en rem */
-  font-weight: bold;/* grosor de fuente en negrita */
-  display: block;/* muestra el botón como un bloque */
-  margin: 0 auto;/* centra el botón horizontalmente */
-  width: 200px; /* ancho específico para el botón */
-  padding: 10px 20px; /* espacio interno alrededor del texto del botón */
-  line-height: 1.2; /* eltura de línea para centrar el texto verticalmente */
-  background-color: rgba(204, 129, 223, 0.623); /* color de fondo */
-  color: rgb(58, 7, 105); /* color del texto */
-  border: none; /* sin borde */
-  cursor: pointer; /* cursor al pasar por encima */
-  box-sizing: border-box; /* incluye padding y borde en el tamaño total del botón */
-}
-
 /*continuar el cuadro de resultados de estadisticas*/
 #resultado-estadisticas {
   display: block; /* Asegúrate de que esté visible por defecto */
@@ -257,7 +231,6 @@ footer {
   align-items: center; /* alinea verticalmente en el centro si el contenedor tiene altura */
   overflow-x: auto; /* agregar una barra de desplazamiento horizontal si es necesario */
 }
-
 
 /* Estilo para los párrafos dentro del contenedor */
 #resultado-estadisticas p {
