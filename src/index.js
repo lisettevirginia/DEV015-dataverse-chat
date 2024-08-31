@@ -1,32 +1,31 @@
-import { Home } from './src/views/Home';
-import { ApiKey } from './src/views/ApiKey';
-import { ChatIndividual } from './src/views/ChatIndividual';
-import { ErrorPage } from './src/views/ErrorPage';
-import { setRootEl, setRoutes, onURLChange } from './src/router.js';
+import home from './views/home.js';
+import ApiKey from './views/ApiKey.js';
+import chatIndividual from './views/chatIndividual.js';
+import PageError from './views/PageError.js';
+import { setRootEl, setRoutes, onURLChange } from './router.js';
 
-document.getElementById('root').textContent = 'Prueba de contenido';
-
+// Configuración de rutas
 const routes = {
-  '/': Home,
-  '/apikey': ApiKey,
-  '/chat': ChatIndividual,
-  '/error': ErrorPage
+  "/": home,
+  "/api-key": ApiKey,
+  "/chat-individual": chatIndividual,
+  "/page-error": PageError,
 };
-
-setRoutes(routes);
-
-window.addEventListener("DOMContentLoaded", () => {
-  setRootEl(document.getElementById('root'));
-  onURLChange(window.location);
+//Añade un evento que se ejecuta cuando la página está lista para ser manipulada
+document.addEventListener('DOMContentLoaded', () => {
+  //contenedor principal donde se va a renderizar la vista de la aplicación
+  const rootElement = document.getElementById('root');
+  //dice al enrutador cuál es el elemento raíz donde debe renderizar las vistas
+  setRootEl(rootElement);
+  //configura las rutas de la aplicación, asociando cada ruta con su correspondiente componente o función
+  setRoutes(routes);
+  //asegura que la vista correcta se renderice en función de la URL actual 
+  onURLChange(window.location); // Renderiza la vista inicial
 });
 
-window.addEventListener('popstate', () => {
+// Manejo del historial
+//cuando el usuario navega hacia adelante o hacia atrás usando los botones del navegador.
+window.addEventListener("popstate", () => {
+//permite que la aplicación renderice la vista correcta cada vez que cambia la URL
   onURLChange(window.location);
 });
-
-/*
-TODO:
-1.- Definir rutas en router.
-2.- Pasar "root element" a router.
-3.- Invocar el router para renderizar la vista correcta.
-*/

@@ -1,4 +1,10 @@
-export function ChatIndividual() {
+import renderHeader  from "../components/Renderheader.js"
+import renderFooter from "../components/renderFooter.js";
+
+export function chatIndividual() {
+  const divHome = document.createElement('div');  
+  divHome.appendChild (renderHeader());
+
   const viewEl = document.createElement('div');
   viewEl.innerHTML = `
     <h2>Chat Individual</h2>
@@ -7,6 +13,9 @@ export function ChatIndividual() {
       <!-- Aquí irá el contenido del chat -->
     </div>
   `;
-  return viewEl;
+  divHome.appendChild(viewEl)
+  divHome.appendChild (renderFooter());
+  
+  return divHome;
 }
-
+export default chatIndividual;
