@@ -243,6 +243,23 @@ footer {
   white-space: nowrap; /*evitar el ajuste de línea dentro de los párrafos*/
 }
 
+.botonkey {
+  color: rgb(226, 180, 238); /* Color lila semi-transparente */
+  background-color: rgb(58, 7, 105); /* Color del texto */
+  font-family: 'Montserrat', sans-serif;
+  border: none; /* Sin borde */
+  border-radius: 0.625rem; /* Bordes redondeados */
+  cursor: pointer; /* Cursor al pasar por encima */
+  text-align: center; /* Alineación del texto centrado */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  margin: 0.625rem auto 0; /* Centrado y espacio superior */
+  display: block; /* Asegura que el botón se comporte como un bloque */
+  width: 12.5rem; /* Ancho del botón */
+  box-sizing: border-box; 
+  text-decoration: none;
+}
+
 /* Media queries */
 @media (max-width: 768px) {
   header {

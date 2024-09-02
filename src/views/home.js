@@ -14,10 +14,17 @@ function home() {
   //añade el header al divHome
   divHome.appendChild(header);
 
+  const botonApiKey = document.createElement('section');
+  divHome.appendChild(botonApiKey)
+  botonApiKey.innerHTML = `
+    <a target="_blank" class="botonkey" href="http://localhost:3000/api-key">Api Key</a>  
+    
+      `;
   //crea un elemento nav para contener el filtro/ordenado/botón
   const navOrdenFiltroBoton = document.createElement('nav');
   //añade clase nav-container al nav, lo que permite aplicarle estilos
   navOrdenFiltroBoton.classList.add('nav-container');
+
 
   //crea un div para agrupar el filtro, el ordenado y el botón
   const filtroOrdenBotonContainer = document.createElement('div');
@@ -271,3 +278,5 @@ const boton = () => {
 //exporta la función home como el valor por defecto del módulo, 
 //permitiendo que otros archivos la importen y la usen
 export default home;
+
+
