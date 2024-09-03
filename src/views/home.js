@@ -3,7 +3,12 @@ import personajes from "../components/personajes.js";
 import dataset from "../data/dataset.js"; 
 import renderFooter from "../components/renderFooter.js";
 import { calcularEstadisticas, getCharacters } from "../lib/dataFunction.js";
+import { navigateTo } from "../navigate.js";
 
+// Define la función navigateToApiKeyPage
+function navigateToApiKeyPage() {
+  navigateTo('/api-key');  // Asegúrate de usar la ruta correcta
+}
 //responsable de crear y estructurar la página de inicio
 function home() {
   //crea un div que será el contenedor principal para la página de inicio
@@ -11,15 +16,20 @@ function home() {
 
   //genera el header de la página y lo asigna a la constante header
   const header = renderHeader();
+  
   //añade el header al divHome
   divHome.appendChild(header);
 
+  // Sección para el botón de API Key
   const botonApiKey = document.createElement('section');
-  divHome.appendChild(botonApiKey)
+  divHome.appendChild(botonApiKey);
   botonApiKey.innerHTML = `
-    <a target="_blank" class="botonkey" href="http://localhost:3000/api-key">Api Key</a>  
-    
-      `;
+    <button id="apiKeyButton">Ir a API Key</button>
+  `;
+  // Añadir el listener al botón para usar la función navigateToApiKeyPage
+  const apiKeyButton = botonApiKey.querySelector('#apiKeyButton');
+  apiKeyButton.addEventListener('click', navigateToApiKeyPage);
+
   //crea un elemento nav para contener el filtro/ordenado/botón
   const navOrdenFiltroBoton = document.createElement('nav');
   //añade clase nav-container al nav, lo que permite aplicarle estilos

@@ -2,7 +2,8 @@ import home from './views/home.js';
 import ApiKey from './views/ApiKey.js';
 import chatIndividual from './views/chatIndividual.js';
 import PageError from './views/PageError.js';
-import { setRootEl, setRoutes, onURLChange } from './router.js';
+import { setRootEl, setRoutes, onURLChange } from './router.js'
+
 
 // Configuración de rutas
 const routes = {
@@ -29,3 +30,4 @@ window.addEventListener("popstate", () => {
 //permite que la aplicación renderice la vista correcta cada vez que cambia la URL
   onURLChange(window.location);
 });
+
