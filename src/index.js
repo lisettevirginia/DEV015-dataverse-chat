@@ -3,6 +3,7 @@ import ApiKey from './views/ApiKey.js';
 import chatIndividual from './views/chatIndividual.js';
 import PageError from './views/PageError.js';
 import { setRootEl, setRoutes, onURLChange } from './router.js'
+import Character from './views/Character.js';
 
 
 // Configuración de rutas
@@ -11,6 +12,7 @@ const routes = {
   "/api-key": ApiKey,
   "/chat-individual": chatIndividual,
   "/page-error": PageError,
+  "/character": Character,
 };
 //Añade un evento que se ejecuta cuando la página está lista para ser manipulada
 document.addEventListener('DOMContentLoaded', () => {
