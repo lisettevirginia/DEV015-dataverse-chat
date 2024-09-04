@@ -24,13 +24,23 @@ function ApiKey() {
     apiKeyInput.value = savedApiKey;
   }
 
-  // Agrega el manejador de eventos para el botón "Guardar"
-  const saveButton = viewEl.querySelector('#save-api-key');
-  saveButton.addEventListener('click', () => {
+  // Función para guardar la API Key y cambiar el comportamiento del botón
+  const saveApiKey = () => {
     const apiKey = apiKeyInput.value;
     setApiKey(apiKey); // Guarda la API Key en Local Storage
     alert('API Key guardada con éxito.');
-  });
+
+    // Cambia la función del botón para que redirija al home
+    saveButton.textContent = 'Regresar al Home';
+    saveButton.removeEventListener('click', saveApiKey); // Elimina este listener
+    saveButton.addEventListener('click', () => {
+      window.location.href = '/'; // Cambia a la ruta del home (ajústala si es necesario)
+    });
+  };
+
+  // Agrega el manejador de eventos para el botón "Guardar"
+  const saveButton = viewEl.querySelector('#save-api-key');
+  saveButton.addEventListener('click', saveApiKey);
 
   return divHome;
 }
