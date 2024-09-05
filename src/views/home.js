@@ -1,9 +1,9 @@
-import renderHeader from "../components/Renderheader.js";
-import personajes from "../components/personajes.js"; 
-import dataset from "../data/dataset.js"; 
-import renderFooter from "../components/renderFooter.js";
-import { calcularEstadisticas, getCharacters } from "../lib/dataFunction.js";
-import { navigateTo } from "../navigate.js";
+import renderHeader from '../components/Renderheader.js';
+import personajes from '../components/personajes.js'; 
+import dataset from '../data/dataset.js';
+import renderFooter from '../components/renderFooter.js';
+import { calcularEstadisticas, getCharacters } from '../lib/dataFunction.js';
+import { navigateTo } from '../navigate.js';
 
 // Define la función navigateToApiKeyPage
 function navigateToApiKeyPage() {

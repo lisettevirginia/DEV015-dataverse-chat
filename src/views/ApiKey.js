@@ -1,6 +1,6 @@
-import renderHeader from "../components/Renderheader.js";
-import renderFooter from "../components/renderFooter.js";
-import { setApiKey, getApiKey } from "../lib/apiKey.js"; // Importa las funciones de manejo de API Key
+import renderHeader from '../components/Renderheader.js';
+import renderFooter from '../components/renderFooter.js';
+import { setApiKey, getApiKey } from '../lib/apiKey.js'; // Importa las funciones de manejo de API Key
 
 function ApiKey() {
   const divHome = document.createElement('div');  
