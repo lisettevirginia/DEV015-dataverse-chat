@@ -61,6 +61,16 @@ function home() {
   personajesContainer.id = 'personajes-container'; 
   //añade el contenedor de personajes al divHome
   divHome.appendChild(personajesContainer);
+  
+  // Añadir evento de click para la navegación a cada tarjeta de personaje
+  personajesContainer.querySelectorAll('.character-card').forEach(card => {
+    card.addEventListener('click', (event) => {
+    // Obtener el ID del personaje del atributo data-id de la tarjeta
+      const characterId = event.currentTarget.getAttribute('data-id');
+      // Navegar a la vista individual del personaje utilizando navigateTo y pasando el ID
+      navigateTo(`/character/${characterId}`);
+    });
+  });
 
   //CONTENEDOR PARA MOSTRAR LAS ESTADISTICAS
   //crea un div para mostrar las estadísticas
