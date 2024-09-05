@@ -1,12 +1,11 @@
-/*import renderHeader from '../components/Renderheader.js';
+import renderHeader from '../components/Renderheader.js';
 import renderFooter from '../components/renderFooter.js';
-import { getCharacters } from '../lib/dataFunction.js'; */
+import { getCharacters } from '../lib/dataFunction.js';
 
 function chatIndividual() {
-  const divHome = document.createElement('div')
-  return divHome
-  /* const divHome = document.createElement('div');
+  const divHome = document.createElement('div');
   divHome.appendChild(renderHeader());
+  console.log("hola");
 
   // Obtén el id de la url
   const id = window.location.pathname.split('/')[2];
@@ -39,7 +38,7 @@ function chatIndividual() {
     alert(`Iniciando chat con ${character.name}`);
   });
 
-  return divHome; */
+  return divHome;
 }
 
 export default chatIndividual;

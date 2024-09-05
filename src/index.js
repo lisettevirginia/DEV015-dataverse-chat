@@ -1,17 +1,16 @@
-import home from '../views/home.js';
-import ApiKey from '../views/ApiKey.js';
-import chatIndividual from '../views/chatIndividual.js';
-import PageError from '../views/PageError.js';
-import { setRootEl, setRoutes, onURLChange } from '../router.js';
+import home from './views/home.js';
+import ApiKey from './views/ApiKey.js';
+import chatIndividual from './views/chatIndividual.js';
+import PageError from './views/PageError.js';
+import { setRootEl, setRoutes, onURLChange } from './router.js';
 //import Character from '../views/Character.js';
 
 // Configuración de rutas
 const routes = {
-  "/": home,
   "/api-key": ApiKey,
   "/chat-individual": chatIndividual,
   "/page-error": PageError,
-  "/prueba": () => document.createElement ("div")
+  "/": home,
 
 };
 //Añade un evento que se ejecuta cuando la página está lista para ser manipulada

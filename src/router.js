@@ -36,35 +36,42 @@ const queryStringToObject = (queryString) => {
 // renderiza la vista correspondiente a una ruta específica.
 const renderView = (pathname, props = {}) => {
   rootEl.innerHTML = ''; // Limpia el contenido del elemento root
+  console.log (pathname);
 
   // Busca la ruta más similar en ROUTES
   let matchedRoute = null;
   let matchedParams = {};
 
-  Object.keys(ROUTES).forEach(route => {
+  Object.keys(ROUTES).every(route => {
     // Convierte la ruta en una expresión regular
-    const routeRegex = new RegExp(`^${route.replace(/:\w+/g, '([^/]+)')}$`);
-    const match = pathname.match(routeRegex);
+    //const routeRegex = new RegExp(`^${route.replace(/:\w+/g, '([^/]+)')}$`);
+    const match = pathname.startsWith(route);
 
     if (match) {
-      matchedRoute = route;
+      const vistaPathname = ROUTES[route] || ROUTES["/page-error"];
+      const viewElement = vistaPathname({ ...props, ...matchedParams });
+      rootEl.append(viewElement);
+      return false;
+      /*matchedRoute = route;
       const keys = (route.match(/:\w+/g) || []).map(key => key.substring(1));
       matchedParams = keys.reduce((params, key, index) => {
         params[key] = match[index + 1];
         return params;
-      }, {});
+      }, {});*/
     }
+    return true;
   });
 
   // Si se encontró una ruta coincidente, renderiza esa vista
-  if (matchedRoute) {
+/*   if (matchedRoute) {
     const vistaPathname = ROUTES[matchedRoute] || ROUTES["/page-error"];
+    console.log(matchedRoute)
     const viewElement = vistaPathname({ ...props, ...matchedParams });
     rootEl.append(viewElement);
   } else {
     // Si no hay coincidencias, renderiza la página de error
     renderView('/page-error');
-  }
+  } */
 };
 
 //que permite navegar a una nueva ruta sin recargar la página
