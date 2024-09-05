@@ -1,5 +1,5 @@
-import renderHeader  from "../components/Renderheader.js"
-import renderFooter from "../components/renderFooter.js";
+import renderHeader  from '../components/Renderheader.js';
+import renderFooter from '../components/renderFooter.js';
 
 export function PageError() { 
   const divHome = document.createElement('div');  

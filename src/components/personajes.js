@@ -1,4 +1,4 @@
-import dataset from "./data/dataset.js";
+import dataset from '../data/dataset.js';
 
 const personajes = (characters = dataset) => { 
   const personajesContainer = document.createElement('div'); // Cambié 'main' por 'div'
@@ -9,7 +9,7 @@ const personajes = (characters = dataset) => {
     personajeEl.classList.add('personajes'); // Añadir la clase para cada tarjeta
     personajeEl.setAttribute ('data-id', personaje.id)// añade el data-id al elemento
     personajeEl.innerHTML = `
-    <a href="/personaje/${personaje.id}">
+    <a href="/chat-individual/${personaje.id}">
       <h3>${personaje.name}</h3>
       <img src="${personaje.imageUrl}" alt="${personaje.name}" />
       <p>Edad: ${personaje.facts.edad}</p>
