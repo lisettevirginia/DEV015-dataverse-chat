@@ -1,8 +1,6 @@
-const characters = [
-  { name: 'Daphne Bridgerton', familia: 'bridgerton', description: 'A main character.', facts: { sitSentimental: 'casada' } },
-  { name: 'Penelope Featherington', familia: 'featherington', description: 'A supporting character.', facts: { sitSentimental: 'soltera' } },
-  // Más personajes...
-];
+import dataset from "../data/dataset";
+
+const characters = dataset;
 
 export function filterCharactersByFamily(familia) {
   // Filtra personajes por familia

@@ -36,11 +36,7 @@ const queryStringToObject = (queryString) => {
 // renderiza la vista correspondiente a una ruta específica.
 const renderView = (pathname, props = {}) => {
   rootEl.innerHTML = ''; // Limpia el contenido del elemento root
-  console.log (pathname);
 
-  // Busca la ruta más similar en ROUTES
-  let matchedRoute = null;
-  let matchedParams = {};
 
   Object.keys(ROUTES).every(route => {
     // Convierte la ruta en una expresión regular
@@ -49,15 +45,9 @@ const renderView = (pathname, props = {}) => {
 
     if (match) {
       const vistaPathname = ROUTES[route] || ROUTES["/page-error"];
-      const viewElement = vistaPathname({ ...props, ...matchedParams });
+      const viewElement = vistaPathname({ ...props });
       rootEl.append(viewElement);
       return false;
-      /*matchedRoute = route;
-      const keys = (route.match(/:\w+/g) || []).map(key => key.substring(1));
-      matchedParams = keys.reduce((params, key, index) => {
-        params[key] = match[index + 1];
-        return params;
-      }, {});*/
     }
     return true;
   });

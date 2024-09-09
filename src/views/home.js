@@ -12,16 +12,16 @@ function navigateToApiKeyPage() {
 //responsable de crear y estructurar la página de inicio
 function home() {
   //crea un div que será el contenedor principal para la página de inicio
-  const divHome = document.createElement('div');
+  const divHome = document.createElement('div'); //check lis
 
   //genera el header de la página y lo asigna a la constante header
   const header = renderHeader();
   
   //añade el header al divHome
-  divHome.appendChild(header);
+  divHome.appendChild(header);//check lis
 
   // Sección para el botón de API Key
-  const botonApiKey = document.createElement('section');
+  const botonApiKey = document.createElement('section'); //check lis
   divHome.appendChild(botonApiKey);
   botonApiKey.innerHTML = `
     <button id="apiKeyButton">Ir a API Key</button>
@@ -33,23 +33,23 @@ function home() {
   //crea un elemento nav para contener el filtro/ordenado/botón
   const navOrdenFiltroBoton = document.createElement('nav');
   //añade clase nav-container al nav, lo que permite aplicarle estilos
-  navOrdenFiltroBoton.classList.add('nav-container');
+  navOrdenFiltroBoton.classList.add('nav-container'); //check lis
 
 
   //crea un div para agrupar el filtro, el ordenado y el botón
   const filtroOrdenBotonContainer = document.createElement('div');
   //añade una clase, lo que permite aplicarle estilos
-  filtroOrdenBotonContainer.classList.add('filtro-ordenado-boton-container');
+  filtroOrdenBotonContainer.classList.add('filtro-ordenado-boton-container'); //check lis
 
   //añade el componente filtrado al filtroOrdenBotonContainer
-  filtroOrdenBotonContainer.appendChild(filtrado());
+  filtroOrdenBotonContainer.appendChild(filtrado());  //componente q esta más abajo
   //añade el componente ordenado al filtroOrdenBotonContainer
-  filtroOrdenBotonContainer.appendChild(ordenado());
+  filtroOrdenBotonContainer.appendChild(ordenado()); //componente q esta más abajo
   //añade el componente boton al filtroOrdenBotonContainer
-  filtroOrdenBotonContainer.appendChild(boton());
+  filtroOrdenBotonContainer.appendChild(boton()); //componente q esta más abajo
 
   //añade el contenedor con los elementos de filtro, ordenado y botón al nav.
-  navOrdenFiltroBoton.appendChild(filtroOrdenBotonContainer);
+  navOrdenFiltroBoton.appendChild(filtroOrdenBotonContainer); //check lis
   //añade el nav al divHome
   divHome.appendChild(navOrdenFiltroBoton);
 
@@ -63,14 +63,14 @@ function home() {
   divHome.appendChild(personajesContainer);
   
   // Añadir evento de click para la navegación a cada tarjeta de personaje
-  personajesContainer.querySelectorAll('.character-card').forEach(card => {
+  /* personajesContainer.                                                          ('.character-card').forEach(card => {
     card.addEventListener('click', (event) => {
     // Obtener el ID del personaje del atributo data-id de la tarjeta
       const characterId = event.currentTarget.getAttribute('data-id');
       // Navegar a la vista individual del personaje utilizando navigateTo y pasando el ID
       navigateTo(`/character/${characterId}`);
     });
-  });
+  })*/
 
   //CONTENEDOR PARA MOSTRAR LAS ESTADISTICAS
   //crea un div para mostrar las estadísticas
