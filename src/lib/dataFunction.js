@@ -1,6 +1,4 @@
-import dataset from "../data/dataset";
-
-const characters = dataset;
+import characters from '../data/dataset.js';
 
 export function filterCharactersByFamily(familia) {
   // Filtra personajes por familia
@@ -29,8 +27,12 @@ export function filterAndSortCharacters(familia, order) {
 }
 
 export function getCharacters() {
-  // Devuelve todos los personajes
-  return characters;
+  return new Promise ((resolve) => {
+    setTimeout(() => 
+    {
+      resolve (characters);
+    }, 1000) //retraso de 1 seg.
+  });
 }
 export function calcularEstadisticas(data) {
   return data.reduce((estadisticas, character) => {

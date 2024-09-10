@@ -1,6 +1,6 @@
 import renderHeader from '../components/Renderheader.js';
 import personajes from '../components/personajes.js'; 
-import dataset from '../data/dataset.js';
+import characters from '../data/dataset.js';
 import renderFooter from '../components/renderFooter.js';
 import { calcularEstadisticas, getCharacters } from '../lib/dataFunction.js';
 import { navigateTo } from '../navigate.js';
@@ -55,7 +55,7 @@ function home() {
 
   //CONTENEDOR CON LA LISTA DE PERSONAJES Y LO ASIGNA personajesContainer
   //llama a la función personajes pasando el dataset para generar 
-  const personajesContainer = personajes(dataset); 
+  const personajesContainer = personajes(characters); 
   //asigna el id 'personajes-container' al contenedor de personajes 
   //para facilitar su manipulación
   personajesContainer.id = 'personajes-container'; 
@@ -84,7 +84,7 @@ function home() {
   //CALCULAR Y MOSTRAR LAS ESTADISTICAS AL CARGAR LA PAGINA 
   //Calcula las estadísticas llamando a calcularEstadisticas y pasando 
   //el resultado de getCharacters().
-  const stats = calcularEstadisticas(dataset);
+  const stats = calcularEstadisticas(characters);
   //rellena el resultadoEstadisticas con el HTML que muestra las estadísticas
   resultadoEstadisticas.innerHTML = `
     <p>Casados: ${stats.casados}</p>
@@ -147,7 +147,7 @@ const filtrado = () => {
     //personajes filtrados,Utiliza el método filter en el arreglo dataset para
     //filtrar los personajes. personaje => { define una función flecha 
     //que se ejecutará para cada elemento (personaje) del arreglo.
-    const filteredCharacters = dataset.filter(personaje => {
+    const filteredCharacters = characters.filter(personaje => {
 
       //si familia existe, la convierte a minúsculas (toLowerCase()), 
       //de lo contrario, asigna una cadena vacía ('')
@@ -214,7 +214,7 @@ const ordenado = () => {
 
     //filtra los personajes basándose en la familia seleccionada,
     //similar al proceso anterior
-    const filteredCharacters = dataset.filter(personaje => 
+    const filteredCharacters = characters.filter(personaje => 
       family === '' || personaje.facts.familia.toLowerCase() === family.toLowerCase()
     );
 
@@ -270,7 +270,7 @@ const boton = () => {
     //limpia el contenido del contenedor de personajes
     personajesContainer.innerHTML = ''; 
     //añade todos los personajes (sin filtrar ni ordenar) al contenedor
-    personajesContainer.appendChild(personajes(dataset)); 
+    personajesContainer.appendChild(personajes(characters)); 
 
     //Resetea el formulario de filtros,eliminando cualquier selección anterior
     document.querySelector('#filter-form').reset(); 
