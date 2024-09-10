@@ -1,33 +1,19 @@
 import renderHeader from '../components/Renderheader.js';
 import renderFooter from '../components/renderFooter.js';
-import { getCharacters } from '../lib/dataFunction.js';
+import { getCharacterById } from '../lib/dataFunction.js';
 
-async function chatIndividual() {
+async function chatIndividual({ id }) {
   const divHome = document.createElement('div');
   divHome.appendChild(renderHeader());
 
-  // Obtén el id de la URL
-  const id = window.location.pathname.split('/')[2]; // El id que viene de la URL, como 'daphne-bridgerton'
-  console.log('ID obtenido de la URL:', id);
-
   try {
-    // Esperamos que se resuelva la promesa de getCharacters
-    const characters = await getCharacters(); 
-    console.log('Personajes obtenidos:', characters);
-
-    // Busca el personaje que coincida con el id de la URL
-    const character = characters.find(c => c.id === id);
-    console.log('Personaje encontrado:', character);
-
+    const character = await getCharacterById(id);
     if (!character) {
       const errorDiv = document.createElement('div');
       errorDiv.innerText = 'Personaje no encontrado';
-      divHome.appendChild(errorDiv);
-      divHome.appendChild(renderFooter());
-      return divHome;
+      return errorDiv;
     }
 
-    // Se crea el contenedor para la vista del personaje
     const viewEl = document.createElement('div');
     viewEl.innerHTML = `
       <h2>${character.name}</h2>
@@ -39,16 +25,13 @@ async function chatIndividual() {
     divHome.appendChild(viewEl);
     divHome.appendChild(renderFooter());
 
-    // Agrega el manejador de eventos para el botón "Chatear"
     const chatButton = viewEl.querySelector('#chat-button');
     chatButton.addEventListener('click', () => {
       alert(`Iniciando chat con ${character.name}`);
     });
 
     return divHome;
-    
   } catch (error) {
-    console.error('Error al obtener los personajes:', error);
     const errorDiv = document.createElement('div');
     errorDiv.innerText = 'Hubo un error al cargar el personaje. Inténtalo nuevamente.';
     divHome.appendChild(errorDiv);
@@ -58,3 +41,4 @@ async function chatIndividual() {
 }
 
 export default chatIndividual;
+

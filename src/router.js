@@ -34,35 +34,42 @@ const queryStringToObject = (queryString) => {
   return result;
 };
 // renderiza la vista correspondiente a una ruta específica.
-const renderView = (pathname, props = {}) => {
+const renderView = async (pathname, props = {}) => {
   rootEl.innerHTML = ''; // Limpia el contenido del elemento root
 
-
-  Object.keys(ROUTES).every(route => {
-    // Convierte la ruta en una expresión regular
-    //const routeRegex = new RegExp(`^${route.replace(/:\w+/g, '([^/]+)')}$`);
-    const match = pathname.startsWith(route);
+  for (const route in ROUTES) {
+    const routeRegex = new RegExp(`^${route.replace(/:\w+/g, '([^/]+)')}$`);
+    const match = pathname.match(routeRegex);
 
     if (match) {
-      const vistaPathname = ROUTES[route] || ROUTES["/page-error"];
-      const viewElement = vistaPathname({ ...props });
-      rootEl.append(viewElement);
-      return false;
-    }
-    return true;
-  });
+      const matchedParams = {};
+      const paramNames = route.match(/:\w+/g) || [];
 
-  // Si se encontró una ruta coincidente, renderiza esa vista
-/*   if (matchedRoute) {
-    const vistaPathname = ROUTES[matchedRoute] || ROUTES["/page-error"];
-    console.log(matchedRoute)
-    const viewElement = vistaPathname({ ...props, ...matchedParams });
-    rootEl.append(viewElement);
-  } else {
-    // Si no hay coincidencias, renderiza la página de error
-    renderView('/page-error');
-  } */
+      paramNames.forEach((paraName, index) => {
+        matchedParams[paraName.substring(1)] = match[index + 1];
+      });
+
+      const viewFunc = ROUTES[route] || ROUTES["/page-error"];
+      let viewElement;
+
+      try {
+        // Espera si la vista es una función que retorna una promesa
+        viewElement = await viewFunc({ ...props, ...matchedParams });
+      } catch (error) {
+        viewElement = await ROUTES["/page-error"]();
+      }
+
+      rootEl.append(viewElement);
+      return; // Termina la función después de renderizar la vista correcta
+    }
+  }
+
+  // Si no se encontró ninguna ruta coincidente, carga la página de error una sola vez
+  const errorView = await ROUTES["/page-error"]();
+  rootEl.append(errorView);
 };
+
+
 
 //que permite navegar a una nueva ruta sin recargar la página
 export const navigateTo = (pathname, props = {}) => {

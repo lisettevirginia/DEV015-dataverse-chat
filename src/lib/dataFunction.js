@@ -34,6 +34,18 @@ export function getCharacters() {
     }, 1000) //retraso de 1 seg.
   });
 }
+
+// Función para obtener un solo personaje por ID
+export const getCharacterById = async (id) => {
+  try {
+    const characters = await getCharacters(); // Llamamos a la función que devuelve todos los personajes
+    return characters.find(character => character.id === id); // Filtramos el personaje por su ID
+  } catch (error) {
+    return null; // En caso de error
+  }
+};
+
+
 export function calcularEstadisticas(data) {
   return data.reduce((estadisticas, character) => {
     const sitSentimental = character.facts.sitSentimental ? character.facts.sitSentimental.toLowerCase() : '';

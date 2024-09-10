@@ -8,7 +8,7 @@ import { setRootEl, setRoutes, onURLChange } from './router.js';
 // Configuración de rutas
 const routes = {
   "/api-key": ApiKey,
-  "/chat-individual": chatIndividual,
+  "/chat-individual/:id": chatIndividual, //agrego id para capturar al personaje
   "/page-error": PageError,
   "/": home,
 
