@@ -2,7 +2,9 @@ import characters from '../data/dataset.js';
 
 export function filterCharactersByFamily(familia) {
   // Filtra personajes por familia
-  return characters.filter(character => character.familia === familia);
+  return characters.filter(character => {
+    return character.facts.familia.toLowerCase() === familia.toLowerCase();
+  });
 }
 
 export function sortCharactersByName(characters, sortBy, order) {
