@@ -1,49 +1,89 @@
-
+//Este objeto se utilizará para almacenar las rutas de la aplicación
 let ROUTES = {};
+//Esta variable almacenará el elemento raíz (root)
 let rootEl;
 
+// Esta función toma un parámetro el, que representa el elemento raíz del DOM
 export const setRootEl = (el) => {
-  rootEl = el
-  return rootEl //llama al root que está en el main.js
-}
+  //configura cuál será el contenedor principal de la aplicación 
+  rootEl = el;
+  //verificar que el rootEl se haya configurado correctamente.
+  return rootEl; // Llama al root que está en el main.js
+};
 
-
+//es un objeto que mapea rutas a vistas o componentes.
 export const setRoutes = (routes) => {
-  ROUTES = routes 
-  return ROUTES
-  // optional Throw errors if routes isn't an object
-  // optional Throw errors if routes doesn't define an /error route
-  // assign ROUTES
-}
+  //establece las rutas disponibles en la aplicación.
+  ROUTES = routes;
+  //verificar que el ROUTER se haya configurado correctamente.
 
+  return ROUTES;
+};
+
+//convierte una cadena de consulta(query string)en un objeto JS.
 const queryStringToObject = (queryString) => {
-  // convert query string to URLSearchParams
-  // convert URLSearchParams to an object
-  // return the object
-}
+  //Crea una instancia de URLSearchParams, que permite trabajar con cadenas de consulta
+  const params = new URLSearchParams(queryString);
+  //se almacenarán las claves y valores de la cadena de consulta.
+  const result = {};
+  //Recorre cada par clave-valor en params y los asigna al objeto result.
+  for (const [key, value] of params.entries()) {
+    result[key] = value;
+  }
+  //contiene todos los parámetros de la cadena de consulta como propiedades del objeto
+  return result;
+};
+// renderiza la vista correspondiente a una ruta específica.
+const renderView = async (pathname, props = {}) => {
+  rootEl.innerHTML = ''; // Limpia el contenido del elemento root
 
-const renderView = (pathname, props={}) => {
-  rootEl.innnerHTML = '';
-  // clear the root element
-  const vistaPathname = ROUTES[pathname] || ROUTES["/page-error"]; // Manejar rutas no definidas
-  // find the correct view in ROUTES for the pathname
-  // in case not found render the error view
-  // render the correct view passing the value of props
-  // add the view element to the DOM root element
-  const viewElement = vistaPathname (props);
-  rootEl.append (viewElement)
-} 
+  for (const route in ROUTES) {
+    const routeRegex = new RegExp(`^${route.replace(/:\w+/g, '([^/]+)')}$`);
+    const match = pathname.match(routeRegex);
 
-export const navigateTo = (pathname, props={}) => {
-  // update window history with pushState
-  // render the view with the pathname and props
-}
+    if (match) {
+      const matchedParams = {};
+      const paramNames = route.match(/:\w+/g) || [];
 
+      paramNames.forEach((paraName, index) => {
+        matchedParams[paraName.substring(1)] = match[index + 1];
+      });
+
+      const viewFunc = ROUTES[route] || ROUTES["/page-error"];
+      let viewElement;
+
+      try {
+        // Espera si la vista es una función que retorna una promesa
+        viewElement = await viewFunc({ ...props, ...matchedParams });
+      } catch (error) {
+        viewElement = await ROUTES["/page-error"]();
+      }
+
+      rootEl.append(viewElement);
+      return; // Termina la función después de renderizar la vista correcta
+    }
+  }
+
+  // Si no se encontró ninguna ruta coincidente, carga la página de error una sola vez
+  const errorView = await ROUTES["/page-error"]();
+  rootEl.append(errorView);
+};
+
+
+
+//que permite navegar a una nueva ruta sin recargar la página
+export const navigateTo = (pathname, props = {}) => {
+  const urlParams = new URLSearchParams(props).toString();
+  const fullPath = urlParams ? `${pathname}?${urlParams}` : pathname;
+  window.history.pushState({}, pathname, window.location.origin + fullPath);
+  renderView(pathname, props);
+};
+
+// se ejecuta cuando cambia la URL
 export const onURLChange = (location) => {
-  const { pathname, search } = location
-  const props = queryStringToObject (search)
-  renderView (pathname,props)
-  // parse the location for the pathname and search params
-  // convert the search params to an object
-  // render the view with the pathname and object
-}
+  //extrae el pathname (la ruta) y search (la cadena de consulta) del objeto location.
+  const { pathname, search } = location;
+  //convierte la cadena de consulta en un objeto props que se puede pasar a la vista correspondiente.
+  const props = queryStringToObject(search);
+  renderView(pathname, props);
+};
