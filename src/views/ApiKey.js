@@ -10,8 +10,10 @@ function ApiKey() {
   viewEl.innerHTML = `
     <h2>Configuración de API Key</h2>
     <p>Ingresa tu clave API para acceder al chat.</p>
-    <input type="text" id="api-key-input" placeholder="Tu API Key aquí" />
+    <input type="password" id="api-key-input" placeholder="Tu API Key aquí" />
     <button id="save-api-key">Guardar</button>
+    <button id="clear-api-key">Limpiar API Key</button>
+    <button id="go-home">Volver al Home</button>
   `;
 
   divHome.appendChild(viewEl);
@@ -30,19 +32,37 @@ function ApiKey() {
     setApiKey(apiKey); // Guarda la API Key en Local Storage
     alert('API Key guardada con éxito.');
 
-    // Cambia la función del botón para que redirija al home
+    // Cambia el botón para regresar al Home
     saveButton.textContent = 'Regresar al Home';
-    saveButton.removeEventListener('click', saveApiKey); // Elimina este listener
+    saveButton.removeEventListener('click', saveApiKey); // Elimina el listener actual
     saveButton.addEventListener('click', () => {
-      window.location.href = '/'; // Cambia a la ruta del home (ajústala si es necesario)
+      window.location.href = '/'; // Redirige al home
     });
+  };
+
+  // Función para limpiar la API Key del Local Storage y del input
+  const clearApiKey = () => {
+    setApiKey(''); // Limpia la API Key del Local Storage
+    apiKeyInput.value = ''; // Limpia el input
+    alert('API Key eliminada.');
   };
 
   // Agrega el manejador de eventos para el botón "Guardar"
   const saveButton = viewEl.querySelector('#save-api-key');
   saveButton.addEventListener('click', saveApiKey);
 
+  // Manejador de eventos para el botón "Limpiar API Key"
+  const clearButton = viewEl.querySelector('#clear-api-key');
+  clearButton.addEventListener('click', clearApiKey);
+
+  // Manejador de eventos para el botón "Volver al Home"
+  const goHomeButton = viewEl.querySelector('#go-home');
+  goHomeButton.addEventListener('click', () => {
+    window.location.href = '/'; // Redirige al home
+  });
+
   return divHome;
 }
 
 export default ApiKey;
+

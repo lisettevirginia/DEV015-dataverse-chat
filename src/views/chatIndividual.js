@@ -6,7 +6,6 @@ import renderChatComponent from '../components/chatComponent.js';
 async function chatIndividual({ id }) {
   const divHome = document.createElement('div');
   divHome.appendChild(renderHeader());
-  console.log(divHome.innerHTML)
 
   try {
     const character = await getCharacterById(id);

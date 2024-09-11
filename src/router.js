@@ -60,7 +60,6 @@ const renderView = async (pathname, props = {}) => {
       }
 
       rootEl.append(viewElement);
-      console.log(rootEl.innerHTML);
       return; // Termina la función después de renderizar la vista correcta
     }
   }
