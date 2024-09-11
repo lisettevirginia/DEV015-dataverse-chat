@@ -6,6 +6,7 @@ import renderChatComponent from '../components/chatComponent.js';
 async function chatIndividual({ id }) {
   const divHome = document.createElement('div');
   divHome.appendChild(renderHeader());
+  console.log(divHome.innerHTML)
 
   try {
     const character = await getCharacterById(id);
@@ -41,6 +42,7 @@ async function chatIndividual({ id }) {
     const errorDiv = document.createElement('div');
     errorDiv.innerText = 'Hubo un error al cargar el personaje. Inténtalo nuevamente.';
     divHome.appendChild(errorDiv);
+    
     divHome.appendChild(renderFooter());
     return divHome;
   }
