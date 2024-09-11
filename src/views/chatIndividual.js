@@ -1,6 +1,7 @@
 import renderHeader from '../components/Renderheader.js';
 import renderFooter from '../components/renderFooter.js';
 import { getCharacterById } from '../lib/dataFunction.js';
+import renderChatComponent from '../components/chatComponent.js';
 
 async function chatIndividual({ id }) {
   const divHome = document.createElement('div');
@@ -23,11 +24,16 @@ async function chatIndividual({ id }) {
     `;
 
     divHome.appendChild(viewEl);
+    
+    // Crear y agregar el componente de chat
+    const chatComponent = renderChatComponent();
+    divHome.appendChild(chatComponent);
+
     divHome.appendChild(renderFooter());
 
     const chatButton = viewEl.querySelector('#chat-button');
     chatButton.addEventListener('click', () => {
-      alert(`Iniciando chat con ${character.name}`);
+      chatComponent.style.display = chatComponent.style.display === 'none' ? 'block' : 'none';
     });
 
     return divHome;
