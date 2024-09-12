@@ -19,8 +19,8 @@ const renderChatComponent = (character) => {
       </div>
     `;
 
-  // Manejar el envío de mensajes
-  chatEl.querySelector('#send-message').addEventListener('click', async () => {
+  // Manejar el envío de mensajes al hacer clic en el botón
+  const sendMessage = async () => {
     const input = chatEl.querySelector('#chat-input');
     const message = input.value.trim();  // Captura el mensaje del usuario
     if (message) {
@@ -40,9 +40,20 @@ const renderChatComponent = (character) => {
       input.value = '';
       chatBox.scrollTop = chatBox.scrollHeight;  // Desplazar hacia abajo para mostrar el último mensaje
     }
+  };
+
+  chatEl.querySelector('#send-message').addEventListener('click', sendMessage);
+  
+  // Manejar el envío de mensajes al presionar Enter
+  chatEl.querySelector('#chat-input').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();  // Evitar el salto de línea en el campo de entrada
+      sendMessage();
+    }
   });
 
   return chatEl;
 };
 
 export default renderChatComponent;
+
