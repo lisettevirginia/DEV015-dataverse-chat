@@ -27,8 +27,9 @@ const renderChatComponent = () => {
       chatBox.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
         
       // Enviar el mensaje a OpenAI y obtener la respuesta
-      const response = await sendMessageToOpenAI([{ role: 'user', content: message }]);
-        
+      //const response = await sendMessageToOpenAI([{ role: 'user', content: message }]);
+      const response = await sendMessageToOpenAI(message);  // Solo pasa el contenido
+ 
       // Agregar la respuesta al chat
       chatBox.innerHTML += `<div><strong>Personaje:</strong> ${response}</div>`;
         
