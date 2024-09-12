@@ -25,8 +25,9 @@ async function chatIndividual({ id }) {
 
     divHome.appendChild(viewEl);
     
-    // Crear y agregar el componente de chat
-    const chatComponent = renderChatComponent();
+    // Crear y agregar el componente de chat, pasándole el personaje
+    const chatComponent = renderChatComponent(character);  // PASAR EL PERSONAJE AQUÍ
+    chatComponent.style.display = 'none';  // Ocultar el chat inicialmente
     divHome.appendChild(chatComponent);
 
     divHome.appendChild(renderFooter());
@@ -48,4 +49,3 @@ async function chatIndividual({ id }) {
 }
 
 export default chatIndividual;
-

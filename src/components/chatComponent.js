@@ -1,12 +1,13 @@
 import { sendMessageToOpenAI } from '../lib/openAIApi.js';
 
-const renderChatComponent = () => {
+// Esta función ahora acepta el personaje como parámetro
+const renderChatComponent = (character) => {
   const chatEl = document.createElement('div');
-  chatEl.classList.add('chat-container'); // Aplicar la clase al contenedor del chat
+  chatEl.classList.add('chat-container');
   chatEl.innerHTML = `
       <div class="chat-box">
         <div class="chat-header">
-          <h3>Chat con el personaje</h3>
+          <h3>Chat con ${character.name}</h3>  <!-- Mostrar el nombre del personaje en el encabezado -->
         </div>
         <div class="chat-messages" id="chat-box">
           <!-- Mensajes del chat aparecerán aquí -->
@@ -17,31 +18,42 @@ const renderChatComponent = () => {
         </div>
       </div>
     `;
-    
-  chatEl.querySelector('#send-message').addEventListener('click', async () => {
+
+  // Manejar el envío de mensajes al hacer clic en el botón
+  const sendMessage = async () => {
     const input = chatEl.querySelector('#chat-input');
-    const message = input.value.trim();
+    const message = input.value.trim();  // Captura el mensaje del usuario
     if (message) {
-      // Agregar el mensaje del usuario al chat
       const chatBox = chatEl.querySelector('#chat-box');
       chatBox.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
-        
-      // Enviar el mensaje a OpenAI y obtener la respuesta
-      const response = await sendMessageToOpenAI([{ role: 'user', content: message }]);
-        
-      // Agregar la respuesta al chat
-      chatBox.innerHTML += `<div><strong>Personaje:</strong> ${response}</div>`;
-        
-      // Limpiar el campo de entrada después de enviar el mensaje
+
+      // Crear el prompt dinámico para el personaje
+      const systemPrompt = `Eres ${character.name}, un personaje de la serie "Los Bridgerton". ${character.description}`;
+      
+      // Enviar el mensaje a OpenAI con el prompt dinámico
+      const response = await sendMessageToOpenAI(message, systemPrompt);
+      
+      // Mostrar la respuesta en el chat
+      chatBox.innerHTML += `<div><strong>${character.name}:</strong> ${response}</div>`;
+      
+      // Limpiar el campo de entrada
       input.value = '';
-        
-      // Desplazar el chat hacia abajo para mostrar el último mensaje
-      chatBox.scrollTop = chatBox.scrollHeight;
+      chatBox.scrollTop = chatBox.scrollHeight;  // Desplazar hacia abajo para mostrar el último mensaje
+    }
+  };
+
+  chatEl.querySelector('#send-message').addEventListener('click', sendMessage);
+  
+  // Manejar el envío de mensajes al presionar Enter
+  chatEl.querySelector('#chat-input').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();  // Evitar el salto de línea en el campo de entrada
+      sendMessage();
     }
   });
-    
+
   return chatEl;
 };
-  
+
 export default renderChatComponent;
-  
+
