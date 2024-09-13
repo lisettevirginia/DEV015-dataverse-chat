@@ -37,12 +37,19 @@ async function chatIndividual({ id }) {
     const chatComponent = renderChatComponent(character);
     chatComponent.style.display = 'none'; // Ocultar el chat inicialmente
 
-    // Agregar el chat y el botón al contenedor
-    containerDiv.appendChild(viewEl); // Agrega la imagen y los detalles del personaje
-    containerDiv.appendChild(chatButton); // Agrega el botón de chat
-    containerDiv.appendChild(chatComponent); // Agrega el chat oculto inicialmente
+    // Contenedor del botón y el chat
+    const chatContainerDiv = document.createElement('div');
+    chatContainerDiv.classList.add('chat-container-wrapper'); // Nuevo contenedor para el botón y el chat
 
-    // Agregar todo el contenedor (imagen + chat) al divHome
+    // Agregar el botón y el chat al contenedor del chat
+    chatContainerDiv.appendChild(chatButton);
+    chatContainerDiv.appendChild(chatComponent);
+
+    // Agregar la vista del personaje y el contenedor del chat al contenedor principal
+    containerDiv.appendChild(viewEl); 
+    containerDiv.appendChild(chatContainerDiv);
+
+    // Agregar todo al divHome
     divHome.appendChild(containerDiv);
     divHome.appendChild(renderFooter());
 
