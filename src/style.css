@@ -48,11 +48,12 @@ h1 {
 /*subtitulo*/
 h2 {
   text-align: center; /*centrar el texto*/
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2rem; /*tamaño de funte fijo en rem*/
+  font-family: 'Niconne', cursive;
+  font-size: 4rem; /*tamaño de funte fijo en rem*/
   font-weight: 300; /*grosor de la fuente*/
   margin-top: -2rem; /* mueve hacia arriba en rem */
   color: #3a0769;
+  text-shadow: 0.625rem 0.625rem 0.625rem rgb(76, 56, 78);
 }
 
 /*filtrado, ordenado y despejar*/
@@ -141,20 +142,18 @@ button {
 
 /* Estilo para las tarjetas */
 .personajes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   font-family: 'Montserrat', sans-serif;
-  width: 12.5rem; /* ancho fijo de la tarjeta */
-  height: auto; /* ajustar altura automáticamente */
-  border: 1px solid #ccc; /*borde alrededor de la tarjeta*/
-  padding: 0.625rem; /* espacio interno de la tarjeta ajustado para rem */
-  box-shadow: 0.125rem 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /*sombra de la tarjeta*/
-  border-radius: 0.3125rem; /* borde redondeado */
+  width: 12.5rem; /* Ancho de la tarjeta */
+  padding: 0.625rem;
+  box-shadow: 0.125rem 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+  border-radius: 0.3125rem;
   background-color: #8a4c99c5;
-  transition: transform 0.3s; /*transicion para el efecto escala*/
+  transition: transform 0.3s; /* Transición para el efecto hover */
   color: #fcf7f7;
-  margin: 0.625rem; /* Ajustado para rem */
-  display: flex; /*usa el modelo de caja flexible*/
-  flex-direction: column; /*alinea los elementos hijos verticalmente*/
-  justify-content: space-between; /* Espacio entre los elementos para asegurar una distribución uniforme */
+  margin: 0.625rem;
 }
 
 /* nombres dentro de la tarjeta */
@@ -186,19 +185,11 @@ p {
 } 
 
 /* Estilo para las imágenes */
-.personajes {
-  display: flex; /*usa el modelo de caja flexible*/
-  flex-direction: column; /*alinea los elementos hijos verticalmente*/
-  justify-content: space-between; /* Espacio entre los elementos para asegurar una distribución uniforme */
-  font-family: 'Montserrat', sans-serif;
-  width: 12.5rem; /* Ancho fijo de la tarjeta */
-  padding: 0.625rem; /* Espacio interno de la tarjeta ajustado para rem */
-  box-shadow: 0.125rem 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
-  border-radius: 0.3125rem; /* Borde redondeado */
-  background-color: #8a4c99c5;
-  transition: transform 0.3s; /* Transición para el efecto escala */
-  color: #fcf7f7;
-  margin: 0.625rem; /* Ajustado para rem */
+.personajeImagen {
+  width: 100%;
+  max-width: 300px; /* Asegura que la imagen ocupe el ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  border-radius: 0.3125rem; /* Asegura que la imagen tenga bordes redondeados como la tarjeta */
 }
 
 /*pie de pagina*/
@@ -284,24 +275,43 @@ footer {
     width: 6.25rem; /* Ancho reducido del botón en pantallas pequeñas */
     font-size: 1rem;
   }
+
+  .contenedor-imagen-chat {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+
+  .viewEl-content, .chat-container {
+    flex: 1;
+    max-width: 50%;  }
 }
 /*css del chat componente, favor revisar Maye*/
 /* Contenedor general del chat */
 .chat-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 50%;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   background-color: #fff;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  margin-left: 20px;
 }
 
 /* Encabezado del chat */
 .chat-header {
   padding: 10px;
-  background-color: #007bff;
+  background-color: #cea3e0;
   color: #fff;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -335,13 +345,37 @@ footer {
 /* Botón de envío */
 .chat-input button {
   padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
+  background-color:#cea3e0 ;
+  color: rgb(58, 7, 105);
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .chat-input button:hover {
-  background-color: #0056b3;
+  background-color:#cea3e0 ;
+}
+
+.contenedor-imagen-chat {
+  display: flex; /* Usa flexbox para alinear los elementos en fila */
+  justify-content: space-between; /* Coloca espacio entre la imagen y el chat */
+  align-items: flex-start; /* Alinea los elementos arriba */
+  width: 100%; /* Ajusta el ancho del contenedor */
+  max-width: 1200px; /* Define un ancho máximo si lo necesitas */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  padding: 20px; /* Añade espacio interno */
+  background-color: #f0f0f0; /* Un color de fondo para el contenedor */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra alrededor del contenedor */
+  border-radius: 10px; /* Bordes redondeados */
+  gap: 20px; /* Añade espacio entre la imagen y el chat */
+
+}
+
+.viewEl-content {
+  flex: 1; /* Permite que la sección de la imagen ocupe espacio flexible */
+  max-width: 50%; /* Limita el ancho de la sección de la imagen */
+}
+.chat-container {
+  width: 45%; /* Ajusta el ancho del chat */
+  margin-left: 20px; /* Añade espacio entre la imagen y el chat */
 }

@@ -11,7 +11,7 @@ const personajes = (characters = dataset) => {
     personajeEl.innerHTML = `
     <a href="/chat-individual/${personaje.id}">
       <h3>${personaje.name}</h3>
-      <img src="${personaje.imageUrl}" alt="${personaje.name}" />
+      <img class="personajeImagen" src="${personaje.imageUrl}" alt="${personaje.name}" />
       <p>Edad: ${personaje.facts.edad}</p>
       <p>Situación Sentimental: ${personaje.facts.sitSentimental}</p>
       <p>${personaje.shortDescription
