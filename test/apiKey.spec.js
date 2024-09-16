@@ -1,33 +1,39 @@
 import { getApiKey, setApiKey } from '../src/lib/apiKey.js';
 
 describe('getApiKey', () => {
+  beforeEach(() => {
+    // Limpiar el Local Storage antes de cada test
+    localStorage.clear();
+  });
+
   it('debería devolver el valor de la API Key', () => {
-    const testApiKey = '123456789abcdef';
-    setApiKey(testApiKey);  // Establece la API Key
-    const result = getApiKey();  // Obtiene la API Key
-    expect(result).toBe(testApiKey);  // Verifica que sea la misma
+    setApiKey('123456789abcdef');  // Establecer una API Key de prueba
+    const result = getApiKey();
+    expect(result).toBe('123456789abcdef');
   });
 
   it('debería devolver null si no se ha establecido ninguna API Key', () => {
-    const result = getApiKey();  // Obtiene la API Key sin haberla establecido
+    const result = getApiKey();  // No se ha establecido una API Key
     expect(result).toBeNull();  // Verifica que sea null
   });
 });
 
 describe('setApiKey', () => {
+  beforeEach(() => {
+    // Limpiar el Local Storage antes de cada test
+    localStorage.clear();
+  });
+
   it('debería establecer correctamente la API Key', () => {
-    const testApiKey = 'F2GlJB9TnKwqhbbuJWotT3BlbkFJqmoNWgPQIfOMYtUatAVF';
-    setApiKey(testApiKey);  // Establece la API Key
-    const result = getApiKey();  // Obtiene la API Key
-    expect(result).toBe(testApiKey);  // Verifica que sea la misma
+    setApiKey('123456789abcdef');
+    const result = getApiKey();
+    expect(result).toBe('123456789abcdef');
   });
 
   it('debería sobrescribir la API Key anterior', () => {
-    const firstApiKey = 'firstKey123';
-    const secondApiKey = 'secondKey456';
-    setApiKey(firstApiKey);  // Establece la primera API Key
-    setApiKey(secondApiKey);  // Sobrescribe con la segunda API Key
-    const result = getApiKey();  // Obtiene la API Key
-    expect(result).toBe(secondApiKey);  // Verifica que sea la segunda
+    setApiKey('initialKey');
+    setApiKey('newKey');
+    const result = getApiKey();
+    expect(result).toBe('newKey');
   });
 });

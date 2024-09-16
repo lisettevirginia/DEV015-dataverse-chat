@@ -1,4 +1,4 @@
-export default [
+const characters = [
   {
     "id": "daphne-bridgerton",
     "name": "Daphne Bridgerton",
@@ -411,3 +411,4 @@ export default [
     }
   }
 ];
+export default characters;

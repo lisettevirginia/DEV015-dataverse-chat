@@ -1,12 +1,10 @@
-const characters = [
-  { name: 'Daphne Bridgerton', familia: 'bridgerton', description: 'A main character.', facts: { sitSentimental: 'casada' } },
-  { name: 'Penelope Featherington', familia: 'featherington', description: 'A supporting character.', facts: { sitSentimental: 'soltera' } },
-  // Más personajes...
-];
+import characters from '../data/dataset.js';
 
 export function filterCharactersByFamily(familia) {
   // Filtra personajes por familia
-  return characters.filter(character => character.familia === familia);
+  return characters.filter(character => {
+    return character.facts.familia.toLowerCase() === familia.toLowerCase();
+  });
 }
 
 export function sortCharactersByName(characters, sortBy, order) {
@@ -31,9 +29,25 @@ export function filterAndSortCharacters(familia, order) {
 }
 
 export function getCharacters() {
-  // Devuelve todos los personajes
-  return characters;
+  return new Promise ((resolve) => {
+    setTimeout(() => 
+    {
+      resolve (characters);
+    }, 1000) //retraso de 1 seg.
+  });
 }
+
+// Función para obtener un solo personaje por ID
+export const getCharacterById = async (id) => {
+  try {
+    const characters = await getCharacters(); // Llamamos a la función que devuelve todos los personajes
+    return characters.find(character => character.id === id); // Filtramos el personaje por su ID
+  } catch (error) {
+    return null; // En caso de error
+  }
+};
+
+
 export function calcularEstadisticas(data) {
   return data.reduce((estadisticas, character) => {
     const sitSentimental = character.facts.sitSentimental ? character.facts.sitSentimental.toLowerCase() : '';

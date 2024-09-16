@@ -2,17 +2,15 @@ import home from './views/home.js';
 import ApiKey from './views/ApiKey.js';
 import chatIndividual from './views/chatIndividual.js';
 import PageError from './views/PageError.js';
-import { setRootEl, setRoutes, onURLChange } from './router.js'
-import Character from './views/Character.js';
-
+import { setRootEl, setRoutes, onURLChange } from './router.js';
 
 // Configuración de rutas
 const routes = {
-  "/": home,
   "/api-key": ApiKey,
-  "/chat-individual": chatIndividual,
+  "/chat-individual/:id": chatIndividual, //agrego id para capturar al personaje
   "/page-error": PageError,
-  "/character": Character,
+  "/": home,
+
 };
 //Añade un evento que se ejecuta cuando la página está lista para ser manipulada
 document.addEventListener('DOMContentLoaded', () => {
