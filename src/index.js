@@ -3,7 +3,6 @@ import ApiKey from './views/ApiKey.js';
 import chatIndividual from './views/chatIndividual.js';
 import PageError from './views/PageError.js';
 import { setRootEl, setRoutes, onURLChange } from './router.js';
-//import Character from '../views/Character.js';
 
 // Configuración de rutas
 const routes = {
