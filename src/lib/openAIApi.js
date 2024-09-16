@@ -29,7 +29,6 @@ export async function sendMessageToOpenAI(question, systemPrompt) {
     const data = await response.json();
     return data.choices[0].message.content.trim();
   } catch (error) {
-    console.error('Error al enviar mensaje a OpenAI:', error);
     return 'No se pudo obtener una respuesta. Inténtalo de nuevo más tarde.';
   }
 }
