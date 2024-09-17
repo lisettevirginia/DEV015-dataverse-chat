@@ -32,3 +32,50 @@ export async function sendMessageToOpenAI(question, systemPrompt) { //definició
     return 'No se pudo obtener una respuesta. Inténtalo de nuevo más tarde.';
   }
 }
+
+
+
+------
+
+promesas --->   valor que puede estar disponible ahora o en el futuro
+
+fetch --> realizar la solicitud http
+
+then() ---> verifica la respuesta
+
+catch ----> para manejar errores
+
+
+---------------
+
+expresiones --->  fragmentos de codigo que devuelven un valor
+
+messageElement.classList.add('chat-send');
+
+
+sentencias ---> instrucciones completas que realizan acciones
+
+
+const messageElement = documen.createElement('div')
+
+--------------
+
+
+uso de moks y espias
+
+los mocks simulan funciones o compartamientos externos para las pruebas
+
+
+--------
+
+
+test asincronos 
+ validan codigo que se ejecuta de manera asincrona, como las promesas
+
+
+ test unitarios 
+  validan el funcionamiento de manera individual (uso de jest)
+
+
+
+

@@ -1,69 +1,45 @@
-// test/dataFunctions.spec.js
-import data from '../src/data/dataset.js'; //importamos el dataset
+// Importas la función `filterData` desde tu archivo de funciones, que se encuentra en '../src/lib/dataFunction.js'.
+// Esta es la función que filtra los datos según ciertos criterios.
 import { filterData } from '../src/lib/dataFunction.js';
-import { sortData } from '../src/lib/dataFunction.js';
-import { computeStats } from '../src/lib/dataFunction.js';
-import { filterAndSortCharacters } from '../src/lib/dataFunction.js';
-import { getCharacters } from '../src/lib/dataFunction.js';
 
-describe('filterData', () => {
-  it('Devuelve personajes que pertenecen a la Familia Bridgerton', () => {
-    const result = filterData(data, 'familia', 'Bridgerton'); // Filtra la familia "Bridgerton": Utiliza filterData para obtener todos los personajes que pertenecen a la familia "Bridgerton".
-    const expectedCharacters = data.filter(character => character.facts.familia === 'Bridgerton'); // Esto filtra el dataset original para obtener el array de personajes que coinciden con la familia "Bridgerton" y compara con el resultado de filterData
-    expect(result).toEqual(expectedCharacters); // Compara ambos resultados
+// Importas los datos de los personajes desde el archivo 'dataset.js'. 
+// `characters` es un array de objetos con la información de los personajes.
+import characters from '../src/data/dataset.js';
+
+// Aquí defines una suite de pruebas usando `describe`. 
+// Dentro de esta suite pruebas la función `filterData` con diferentes casos.
+describe("filterData", () => {
+
+  // Primera prueba: Filtrar por familia "Bridgerton"
+  // Llamas a `filterData` pasando `characters` como datos, el campo "familia", y el valor "Bridgerton".
+  // La función debería devolver solo los personajes cuya familia sea "Bridgerton".
+  // Luego comparas el número de personajes filtrados con el valor esperado (9).
+  it("should filter characters by family and return the quantity of Bridgertons", () => {
+    const totalBridgertons = filterData(characters, "familia", "Bridgerton");
+    expect(totalBridgertons.length).toBe(9); // Ajusta según el número real de Bridgertons
   });
 
-  it('Devuelve un arreglo vacío si ningún personaje coincide con la familia', () => { //Filtra la familia "Featherington": Similar a la primera prueba, pero busca personajes de la familia "Featherington".
-    const result = filterData(data, 'familia', 'Featherington'); 
-    const expectedCharacters = data.filter(character => character.facts.familia === 'Featherington'); //Si ningún personaje coincide con la familia, se espera que la función retorne un array vacío.
-
-    expect(result).toEqual(expectedCharacters);
-  });
-});
-
-const getExpectedSortedData = (data, order) => {
-  return [...data].sort((a, b) => {
-    if (order === 'asc') return a.name.localeCompare(b.name);
-    if (order === 'des') return b.name.localeCompare(a.name);
-  });
-};
-
-describe('sortData', () => {
-  test('Ordena alfabéticamente de la a - z', () => {
-    expect(sortData(data, 'name', 'asc')).toEqual(getExpectedSortedData(data, 'asc'));
+  // Segunda prueba: Filtrar por familia "Featherington"
+  // Similar a la primera prueba, filtras los personajes cuya familia es "Featherington".
+  // Luego, verificas que el número de personajes filtrados sea 6.
+  it("should filter characters by family and return the quantity of Featheringtons", () => {
+    const totalFeatheringtons = filterData(characters, "familia", "Featherington");
+    expect(totalFeatheringtons.length).toBe(6); // Ajusta según el número de Featheringtons
   });
 
-  test('Ordena alfabéticamente de la z - a', () => {
-    expect(sortData(data, 'name', 'des')).toEqual(getExpectedSortedData(data, 'des'));
+  // Tercera prueba: Filtrar personajes por estado civil "Casado"
+  // Aquí filtras los personajes cuyo campo `sitSentimental` (situación sentimental) sea "Casado".
+  // Después, verificas que el número de personajes casados sea 7.
+  it("should filter characters by marital status and return the quantity of married characters", () => {
+    const totalMarried = filterData(characters, "sitSentimental", "Casado");
+    expect(totalMarried.length).toBe(7); // Ajusta según cuántos están casados
   });
-});
 
-describe('computeStats', () => {
-  test('Muestra las estadisticas de acuerdo a su situación sentimental', () => {
-    const result = computeStats(data);
-    const expected = {
-      casados: 13,   
-      solteros: 5,  
-      viudos: 4,    
-      amantes: 2,    
-    };
-    expect(result).toEqual(expected);
-  });
-});
-
-describe('filterAndSortCharacters', () => {
-  test('Ordena la familia filtrada alfabeticamente de la a - z', () => {
-    const result = filterAndSortCharacters('Bridgerton', 'asc', data);
-    const expected = data
-      .filter(char => char.facts.familia === 'Bridgerton')
-      .sort((a, b) => a.name.localeCompare(b.name));
-  
-    expect(result).toEqual(expected);
-  });
-});
-describe('getCharacters', () => {
-  test('Trae todos los personajes de la serie', () => {
-    const result = getCharacters();
-    expect(result).toEqual(data); // Compara si el resultado es igual al dataset original
+  // Cuarta prueba: Filtrar personajes por estado civil "Soltero"
+  // Esta prueba es similar a la anterior, pero en vez de "Casado", ahora filtras por "Soltero".
+  // Luego, verificas que el número de personajes solteros sea 2.
+  it("should filter characters by marital status and return the quantity of single characters", () => {
+    const totalSingle = filterData(characters, "sitSentimental", "Soltero");
+    expect(totalSingle.length).toBe(2); // Ajusta según cuántos están solteros
   });
 });

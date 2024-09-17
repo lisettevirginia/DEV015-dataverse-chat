@@ -52,3 +52,6 @@ describe('sendMessageToOpenAI', () => {
     expect(response).toBe('No se pudo obtener una respuesta. Inténtalo de nuevo más tarde.');
   });
 });
+
+
+
