@@ -14,7 +14,7 @@ describe("filterData", () => {
   // Llamas a `filterData` pasando `characters` como datos, el campo "familia", y el valor "Bridgerton".
   // La función debería devolver solo los personajes cuya familia sea "Bridgerton".
   // Luego comparas el número de personajes filtrados con el valor esperado (9).
-  it("should filter characters by family and return the quantity of Bridgertons", () => {
+  it("Filtra a los Bridgertons y la cantidad de integrantes que tiene (9)", () => {
     const totalBridgertons = filterData(characters, "familia", "Bridgerton");
     expect(totalBridgertons.length).toBe(9); // Ajusta según el número real de Bridgertons
   });
@@ -22,7 +22,7 @@ describe("filterData", () => {
   // Segunda prueba: Filtrar por familia "Featherington"
   // Similar a la primera prueba, filtras los personajes cuya familia es "Featherington".
   // Luego, verificas que el número de personajes filtrados sea 6.
-  it("should filter characters by family and return the quantity of Featheringtons", () => {
+  it("Filtra a los Featheringtons y la cantidad de integrantes que tiene (6)", () => {
     const totalFeatheringtons = filterData(characters, "familia", "Featherington");
     expect(totalFeatheringtons.length).toBe(6); // Ajusta según el número de Featheringtons
   });
@@ -30,7 +30,7 @@ describe("filterData", () => {
   // Tercera prueba: Filtrar personajes por estado civil "Casado"
   // Aquí filtras los personajes cuyo campo `sitSentimental` (situación sentimental) sea "Casado".
   // Después, verificas que el número de personajes casados sea 7.
-  it("should filter characters by marital status and return the quantity of married characters", () => {
+  it("Filtra y cuenta los personajes por estado civil casados (7)", () => {
     const totalMarried = filterData(characters, "sitSentimental", "Casado");
     expect(totalMarried.length).toBe(7); // Ajusta según cuántos están casados
   });
@@ -38,7 +38,7 @@ describe("filterData", () => {
   // Cuarta prueba: Filtrar personajes por estado civil "Soltero"
   // Esta prueba es similar a la anterior, pero en vez de "Casado", ahora filtras por "Soltero".
   // Luego, verificas que el número de personajes solteros sea 2.
-  it("should filter characters by marital status and return the quantity of single characters", () => {
+  it("Filtra y cuenta los personajes por estado civil soltero (2)", () => {
     const totalSingle = filterData(characters, "sitSentimental", "Soltero");
     expect(totalSingle.length).toBe(2); // Ajusta según cuántos están solteros
   });
