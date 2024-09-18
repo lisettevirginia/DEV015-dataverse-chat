@@ -35,7 +35,7 @@ export async function sendMessageToOpenAI(question, systemPrompt) { //definició
 
 
 
-------
+/*------
 
 promesas --->   valor que puede estar disponible ahora o en el futuro
 
@@ -74,8 +74,4 @@ test asincronos
 
 
  test unitarios 
-  validan el funcionamiento de manera individual (uso de jest)
-
-
-
-
+  validan el funcionamiento de manera individual (uso de jest)*/
