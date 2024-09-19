@@ -1,39 +1,54 @@
-//Este objeto se utilizará para almacenar las rutas de la aplicación
+// Este objeto se utilizará para almacenar las rutas de la aplicación
 let ROUTES = {};
-//Esta variable almacenará el elemento raíz (root)
+// Esta variable almacenará el elemento raíz (root)
 let rootEl;
 
 // Esta función toma un parámetro el, que representa el elemento raíz del DOM
 export const setRootEl = (el) => {
-  //configura cuál será el contenedor principal de la aplicación 
+  // Configura cuál será el contenedor principal de la aplicación 
   rootEl = el;
-  //verificar que el rootEl se haya configurado correctamente.
+  // Verifica que el rootEl se haya configurado correctamente.
   return rootEl; // Llama al root que está en el main.js
 };
 
-//es un objeto que mapea rutas a vistas o componentes.
+// Es un objeto que mapea rutas a vistas o componentes.
 export const setRoutes = (routes) => {
-  //establece las rutas disponibles en la aplicación.
+  // Establece las rutas disponibles en la aplicación.
   ROUTES = routes;
-  //verificar que el ROUTER se haya configurado correctamente.
+
+  // Agregar nueva ruta para pruebas con API
+  ROUTES['/test-api'] = async () => {
+    const viewElement = document.createElement('div');
+
+    // Realizar un GET cuando se navega a esta ruta
+    getData();
+
+    // Realizar un POST cuando se navega a esta ruta
+    postData();
+
+    viewElement.innerHTML = `<h2>Probando API</h2><p>Consulta la consola para ver los resultados de GET y POST.</p>`;
+    
+    return viewElement;
+  };
 
   return ROUTES;
 };
 
-//convierte una cadena de consulta(query string)en un objeto JS.
+// Convierte una cadena de consulta (query string) en un objeto JS.
 const queryStringToObject = (queryString) => {
-  //Crea una instancia de URLSearchParams, que permite trabajar con cadenas de consulta
+  // Crea una instancia de URLSearchParams, que permite trabajar con cadenas de consulta
   const params = new URLSearchParams(queryString);
-  //se almacenarán las claves y valores de la cadena de consulta.
+  // Se almacenarán las claves y valores de la cadena de consulta.
   const result = {};
-  //Recorre cada par clave-valor en params y los asigna al objeto result.
+  // Recorre cada par clave-valor en params y los asigna al objeto result.
   for (const [key, value] of params.entries()) {
     result[key] = value;
   }
-  //contiene todos los parámetros de la cadena de consulta como propiedades del objeto
+  // Contiene todos los parámetros de la cadena de consulta como propiedades del objeto
   return result;
 };
-// renderiza la vista correspondiente a una ruta específica.
+
+// Renderiza la vista correspondiente a una ruta específica.
 const renderView = async (pathname, props = {}) => {
   rootEl.innerHTML = ''; // Limpia el contenido del elemento root
 
@@ -69,9 +84,7 @@ const renderView = async (pathname, props = {}) => {
   rootEl.append(errorView);
 };
 
-
-
-//que permite navegar a una nueva ruta sin recargar la página
+// Que permite navegar a una nueva ruta sin recargar la página
 export const navigateTo = (pathname, props = {}) => {
   const urlParams = new URLSearchParams(props).toString();
   const fullPath = urlParams ? `${pathname}?${urlParams}` : pathname;
@@ -79,11 +92,37 @@ export const navigateTo = (pathname, props = {}) => {
   renderView(pathname, props);
 };
 
-// se ejecuta cuando cambia la URL
+// Se ejecuta cuando cambia la URL
 export const onURLChange = (location) => {
-  //extrae el pathname (la ruta) y search (la cadena de consulta) del objeto location.
+  // Extrae el pathname (la ruta) y search (la cadena de consulta) del objeto location.
   const { pathname, search } = location;
-  //convierte la cadena de consulta en un objeto props que se puede pasar a la vista correspondiente.
+  // Convierte la cadena de consulta en un objeto props que se puede pasar a la vista correspondiente.
   const props = queryStringToObject(search);
   renderView(pathname, props);
+};
+
+// Función para realizar un GET
+const getData = () => {
+  fetch('https://jsonplaceholder.typicode.com/posts') // Puedes cambiar "posts" por otra ruta
+    .then(response => response.json())
+    .then(data => console.log('GET Response:', data)) // Muestra el resultado
+    .catch(error => console.error('Error en GET:', error)); // Muestra el error si ocurre
+};
+
+// Función para realizar un POST
+const postData = () => {
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: 'Nuevo Post',
+      body: 'Contenido del nuevo post',
+      userId: 1
+    })
+  })
+    .then(response => response.json())
+    .then(data => console.log('POST Response:', data)) // Muestra el resultado
+    .catch(error => console.error('Error en POST:', error)); // Muestra el error si ocurre
 };
