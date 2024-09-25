@@ -1,9 +1,11 @@
-// src/lib/apiKey.js
-
+// Función para obtener la API KEY desde Local Storage
 export const getApiKey = () => {
-  // Implementa el código para obtener la API KEY desde Local Storage
+  // Utiliza localStorage.getItem para obtener la API KEY almacenada
+  return localStorage.getItem('apiKey');
 };
- 
+
+// Función para guardar la API KEY en Local Storage
 export const setApiKey = (key) => {
-  // Implementa el código para guardar la API KEY en Local Storage
+  // Utiliza localStorage.setItem para almacenar la API KEY
+  localStorage.setItem('apiKey', key);
 };

@@ -34,22 +34,48 @@ const queryStringToObject = (queryString) => {
   return result;
 };
 // renderiza la vista correspondiente a una ruta específica.
-const renderView = (pathname, props = {}) => {
-  //Limpia el contenido actual del rootEl, eliminando cualquier vista previamente renderizada.
+const renderView = async (pathname, props = {}) => {
   rootEl.innerHTML = ''; // Limpia el contenido del elemento root
-  //Busca en el objeto ROUTES la vista correspondiente al pathname
-  const vistaPathname = ROUTES[pathname] || ROUTES["/page-error"]; // Manejar rutas no definidas
-  //Llama a la función o componente asociado con la ruta, pasándole los props como argumento
-  const viewElement = vistaPathname(props); // Renderiza la vista correcta
-  //Añade el viewElement generado al rootEl
-  rootEl.append(viewElement);
+
+  for (const route in ROUTES) {
+    const routeRegex = new RegExp(`^${route.replace(/:\w+/g, '([^/]+)')}$`);
+    const match = pathname.match(routeRegex);
+
+    if (match) {
+      const matchedParams = {};
+      const paramNames = route.match(/:\w+/g) || [];
+
+      paramNames.forEach((paraName, index) => {
+        matchedParams[paraName.substring(1)] = match[index + 1];
+      });
+
+      const viewFunc = ROUTES[route] || ROUTES["/page-error"];
+      let viewElement;
+
+      try {
+        // Espera si la vista es una función que retorna una promesa
+        viewElement = await viewFunc({ ...props, ...matchedParams });
+      } catch (error) {
+        viewElement = await ROUTES["/page-error"]();
+      }
+
+      rootEl.append(viewElement);
+      return; // Termina la función después de renderizar la vista correcta
+    }
+  }
+
+  // Si no se encontró ninguna ruta coincidente, carga la página de error una sola vez
+  const errorView = await ROUTES["/page-error"]();
+  rootEl.append(errorView);
 };
+
+
 
 //que permite navegar a una nueva ruta sin recargar la página
 export const navigateTo = (pathname, props = {}) => {
-  //Usa pushState del history del navegador para cambiar la URL sin recargar la página
-  window.history.pushState({}, pathname, window.location.origin + pathname);
-  //Llama a renderView para renderizar la vista correspondiente a la nueva ruta, pasando cualquier props que sean necesarios.
+  const urlParams = new URLSearchParams(props).toString();
+  const fullPath = urlParams ? `${pathname}?${urlParams}` : pathname;
+  window.history.pushState({}, pathname, window.location.origin + fullPath);
   renderView(pathname, props);
 };
 

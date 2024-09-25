@@ -6,10 +6,11 @@ import { setRootEl, setRoutes, onURLChange } from './router.js';
 
 // Configuración de rutas
 const routes = {
-  "/": home,
   "/api-key": ApiKey,
-  "/chat-individual": chatIndividual,
+  "/chat-individual/:id": chatIndividual, //agrego id para capturar al personaje
   "/page-error": PageError,
+  "/": home,
+
 };
 //Añade un evento que se ejecuta cuando la página está lista para ser manipulada
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,3 +30,4 @@ window.addEventListener("popstate", () => {
 //permite que la aplicación renderice la vista correcta cada vez que cambia la URL
   onURLChange(window.location);
 });
+
